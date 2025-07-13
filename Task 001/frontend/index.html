@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Authentication System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>SecureAuth</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" class="nav-link" id="homeLink">Home</a>
+                <a href="#" class="nav-link" id="loginLink">Login</a>
+                <a href="#" class="nav-link" id="registerLink">Register</a>
+                <a href="#" class="nav-link" id="profileLink" style="display: none;">Profile</a>
+                <a href="#" class="nav-link" id="adminLink" style="display: none;">Admin</a>
+                <a href="#" class="nav-link" id="logoutLink" style="display: none;">Logout</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section id="welcomeSection" class="section active">
+                <div class="welcome-content">
+                    <h1><i class="fas fa-shield-alt"></i> Secure Authentication System</h1>
+                    <p>A robust and secure user authentication system with role-based access control.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-lock"></i>
+                            <h3>Secure Login</h3>
+                            <p>Password hashing and JWT tokens</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-shield"></i>
+                            <h3>Role-Based Access</h3>
+                            <p>User and admin roles with permissions</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-virus"></i>
+                            <h3>Protected Routes</h3>
+                            <p>Secure API endpoints and middleware</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Login Section -->
+            <section id="loginSection" class="section">
+                <div class="auth-form">
+                    <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="loginPassword" name="password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Register Section -->
+            <section id="registerSection" class="section">
+                <div class="auth-form">
+                    <h2><i class="fas fa-user-plus"></i> Register</h2>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="registerPassword" name="password" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <small class="password-requirements">
+                                Password must be at least 8 characters with uppercase, lowercase, and number
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerRole">Role</label>
+                            <select id="registerRole" name="role">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                    </form>
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="section">
+                <div class="profile-content">
+                    <h2><i class="fas fa-user"></i> User Profile</h2>
+                    <div class="profile-card">
+                        <div class="profile-info">
+                            <div class="info-group">
+                                <label>Email:</label>
+                                <span id="profileEmail"></span>
+                            </div>
+                            <div class="info-group">
+                                <label>Role:</label>
+                                <span id="profileRole"></span>
+                            </div>
+                            <div class="info-group">
+                                <label>Member Since:</label>
+                                <span id="profileCreated"></span>
+                            </div>
+                            <div class="info-group">
+                                <label>Last Login:</label>
+                                <span id="profileLastLogin"></span>
+                            </div>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="btn btn-secondary" onclick="testProtectedRoute()">
+                                <i class="fas fa-shield-alt"></i> Test Protected Route
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Section -->
+            <section id="adminSection" class="section">
+                <div class="admin-content">
+                    <h2><i class="fas fa-cogs"></i> Admin Dashboard</h2>
+                    <div class="admin-stats">
+                        <div class="stat-card">
+                            <h3>User Statistics</h3>
+                            <div id="userStats">Loading...</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>User Management</h3>
+                            <div id="userList">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification Container -->
+        <div id="notificationContainer" class="notification-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
